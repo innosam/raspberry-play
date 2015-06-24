@@ -51,6 +51,7 @@ def videomanager():
             print " ".join(cmd)
 	    global sub
             sub = Popen(cmd, stdin=PIPE)
+            sub.wait()
             print "done  running the process"
 
 
