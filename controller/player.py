@@ -20,11 +20,12 @@ class Player:
         print "Starting Manager"
         while True: 
             wait_read(self.pipe_right.fileno())
+            print "Msg Received"
             data = self.pipe_right.recv()
             self.process_data(data)  
 
-    def process_Data(self, data):
-        data = cPickle.loads(self.data)
+    def process_data(self, pickled_data):
+        data = cPickle.loads(pickled_data)
   	if(data.has_key('cmd')):
            self.process_cmd(data['cmd'])
 
@@ -41,9 +42,6 @@ class Player:
         print " ".join(cmd)
         self.sub = Popen(cmd, stdin=PIPE)
         omxdbus = OmxDbus()
-        self.sub.wait()
-        print "done running the process"
-        self.sub = None
      
     def process_cmd(self, cmd):
         OmxDbus().send_cmd(cmd)
@@ -51,8 +49,12 @@ class Player:
     def status_thread(self):
         statusQueue = deque([])
         while True:
-            wait_read(self.pipe_status_right.fileno())
-            statusQueue.append(self.pipe_status_right.recv())
+            try:
+                wait_read(self.pipe_status_right.fileno())
+                statusQueue.append(self.pipe_status_right.recv())
+            except:
+                continue
+            print "got status msg"
             if statusQueue:
                 status = statusQueue.popleft()
                 result = ""

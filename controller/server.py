@@ -1,3 +1,5 @@
+import os, sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import gevent
 from collections import deque
 from flask import Flask
@@ -7,18 +9,14 @@ from gevent.subprocess import Popen, PIPE
 from gevent import monkey
 from gevent.socket import wait_read, wait_write
 from flask import render_template, send_from_directory
-from app.omxdbus import OmxDbus
 import json, cPickle
-from app.player import Player
-
+from player import Player
+from raspberry_play import app
 monkey.patch_socket()
 
 pipe_left, pipe_right = Pipe()
 pipe_status_left, pipe_status_right = Pipe()
-
-
-app = Flask(__name__)
-sub = None
+#app = Flask(__name__)
 
 @app.route('/js/<path:path>')
 def send_js(path):
@@ -43,7 +41,9 @@ def omxplayer():
 
     video_url = request.args.get('video_url', '')
     dict_video_url = {'video_url': video_url}
-    pipe_left.send(cPickel.dumps(dict_video_url))
+    print "sending video url"
+    pipe_left.send(cPickle.dumps(dict_video_url))
+    print "sent video url"
     return ""
 
 
@@ -83,7 +83,7 @@ def raspberry():
     return render_template('rasp.html');
 
  
-if __name__ == '__main__':
+def Server():
     proc = Process(target = Player(pipe_right, pipe_status_right).manager)
     proc.start()
     app.run(host='0.0.0.0', port=80)
