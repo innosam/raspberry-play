@@ -12,8 +12,9 @@ $('#Volumeplus').click(function(){
         });   
 
 $('#Pause').click(function(){ 
-         $.get("omxplayer?cmd=" + "PAUSE" );
-
+         $.get("omxplayer?cmd=" + "PAUSE", function(){
+                $('#Pause').prop('value', 'Play'); 
+         } );       
         });   
 
 $('#Volume-').click(function(){ 
@@ -39,5 +40,5 @@ var status_update = function () {
        });
 }
 
-window.setInterval(status_update, 1000);
+window.setInterval(status_update, 5000);
 

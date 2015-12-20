@@ -7,7 +7,7 @@ from gevent.subprocess import Popen, PIPE
 from gevent import monkey
 from gevent.socket import wait_read, wait_write
 from flask import render_template, send_from_directory
-from omxdbus import OmxDbus
+from app.omxdbus import OmxDbus
 import json
 
 monkey.patch_socket()
@@ -48,12 +48,36 @@ def omxplayer():
     a.send(video_url)
     return ""
 
+@app.route('/omxplayer/add_video', methods=['GET'])
+def add_video():
+    video_url = request.args.get('video_url', '')
+    #Add video_url to the list
+    #if no song is playing
+    #start the current one
+    pass
+
+@app.route('/omxplayer/delete_video', methods=['GET'])
+def delete_video():
+    unique_id = request.args.get('unique_id', '')
+    #remove video_url from the list
+    #if no song is playing
+    #stop it
+    pass
+
+@app.route('/omxplayer/get_videos', methods=['GET'])
+def get_videos():
+    #get_video_list_in_json
+    #return the list
+    pass
+
+
 @app.route('/omxplayer/status', methods=['GET'])
 def omxplayer_status():
     e.send("get_status")
     wait_read(e.fileno())
     status = e.recv()
     return status
+
 
 @app.route('/')
 def raspberry():
