@@ -54,12 +54,23 @@ class OmxDbus(Singleton):
                 raise SystemExit
                     
     def send_cmd(self, cmd):
-        print self.dbusIfaceProp.PlaybackStatus()
-        print self.dbusIfaceProp.Duration()
-        print self.dbusIfaceProp.Position()
-        print dir(self.dbusIfaceProp)
-        if keys.COMMANDS.has_key(cmd):
-            self.dbusIfaceKey.Action(dbus.Int32(keys.COMMANDS[cmd]))
+        try:
+            if keys.COMMANDS.has_key(cmd):
+                self.dbusIfaceKey.Action(dbus.Int32(keys.COMMANDS[cmd]))
+        except:
+            pass
+
+    def seek(self, percentage):
+        print "seek called"
+        try:
+     	    duration = self.dbusIfaceProp.Duration()
+	    seek_pos = (int(percentage) * int(duration))/100
+	    seek_cur = int(self.dbusIfaceProp.Position())
+	    print "seek to : " + str(seek_pos - seek_cur)
+	    self.dbusIfaceKey.Seek(dbus.Int64(str(seek_pos-seek_cur)))
+	    print "setposition called"
+        except:
+            pass
 
     def get_status(self):
         status = ""

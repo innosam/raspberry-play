@@ -41,6 +41,12 @@ def omxplayer():
         pipe_left.send(cPickle.dumps(dict_cmd))
         return ""
 
+    seek_value = request.args.get('seek','')
+    dict_seek = {'seek': seek_value}
+    if seek_value:
+        pipe_left.send(cPickle.dumps(dict_seek))
+        return ""
+
     video_url = request.args.get('video_url', '')
     dict_video_url = {'video_url': video_url}
     print "sending video url"

@@ -31,6 +31,10 @@ $(document).on('touchstart.tap click','#progressDiv' , function (ev) {
     var offset = $div.offset();
     var x = ev.clientX - offset.left;
     $('#progressBar').width(x);
+    var width = this.offsetWidth;
+    var percentage = (x*100)/width;
+    $.get("omxplayer?seek=" + Math.floor(percentage));
+    //alert(Math.floor(percentage));
 });
 
 var status_update = function () {

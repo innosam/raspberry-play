@@ -32,6 +32,13 @@ class Player:
         if(data.has_key('video_url')):
            self.process_video_url(data['video_url'])    
 
+        if(data.has_key('seek')):
+           self.process_seek(data['seek'])    
+
+    def process_seek(self, seek_percentage):
+        omxdbus = OmxDbus()
+        omxdbus.seek(seek_percentage)
+
     def process_video_url(self, video_url):
         print "Playing %s"%video_url
         cmd=['youtube-dl', '-g','-f best',video_url]
@@ -61,4 +68,3 @@ class Player:
                 if(OmxDbus.is_initialized()):
                     result = json.dumps(OmxDbus().get_status())
                 self.pipe_status_right.send(result)
- 

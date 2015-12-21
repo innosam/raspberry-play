@@ -8,7 +8,6 @@ class Video(db.Document):
     created_at = db.DateTimeField(default=datetime.datetime.now, required=True)
     video_url = db.StringField(verbose_name="Video_url", required=True)
     name = db.StringField(verbose_name="Name", max_length=255, required=True)
-
     meta = {
         'indexes': ['-created_at', 'name'],
         'ordering': ['-created_at']
