@@ -9,14 +9,13 @@ import json, cPickle
 
 
 class Player:
-     
     def __init__(self, pipe_right, pipe_status_right):
         self.pipe_right = pipe_right
         self.pipe_status_right = pipe_status_right
-        gevent.spawn(self.status_thread)
         self.sub = None
 
     def manager(self):
+        gevent.spawn(self.status_thread)
         print "Starting Manager"
         while True: 
             wait_read(self.pipe_right.fileno())

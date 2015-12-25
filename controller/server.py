@@ -74,6 +74,7 @@ def add_video():
 @app.route('/omxplayer/delete_video', methods=['GET'])
 def delete_video():
     unique_id = request.args.get('unique_id', '')
+    Video.objects.remove({ "_id": { "$oid" : unique_id } })
     #remove video_url from the list
     #if no song is playing
     #stop it
