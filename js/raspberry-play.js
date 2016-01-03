@@ -31,25 +31,71 @@ $('#Volume-').click(function(){
 
 
 $('#playlist_remove').click(function(){ 
-                var id = $( "#playlist option:selected" ).attr('id');
-                $.get("omxplayer/delete_video?unique_id=" + id);
+                var selected_list = $( "#playlist option:selected" );
+                var to_delete = "";
+                for(var i=0; i<selected_list.length; i++)
+                {
+                  if(i!=0){
+                      to_delete += ','
+                  }
+                  to_delete += selected_list[i].id;
+                }
+                $.get("omxplayer/delete_video?unique_id=" + to_delete);
         });   
 
 
 
+
+$('#playlist_play').click(function(){ 
+                var play_id = $( "#playlist option:selected" ).attr('id');
+                $.get("omxplayer/play_video?unique_id=" + play_id);
+        });   
+
+
+$('#playlist_clear').click(function(){ 
+                var selected_list = $( "#playlist option:selected" );
+                var to_delete = "";
+                for(var i=0; i<selected_list.length; i++)
+                {
+                  if(i!=0){
+                      to_delete += ','
+                  }
+                  to_delete += selected_list[i].id;
+                }
+                $.get("omxplayer/delete_video?unique_id=" + to_delete);
+        });   
+
+
+
+
 $(document).ready(function(){
+   refresh_playlist()
+});
+
+
+function refresh_playlist()
+{
+    document.getElementById("playlist").innerHTML = "";
           $.get("omxplayer/get_videos", function(data){
                var result = JSON.parse(data);
 	       for (var i = 0; i < result.length; i++) { 
                  var option = document.createElement("option");
 		 option.setAttribute("value", result[i]["video_url"]);
-		 option.text = result[i]["video_url"]; 
+                 if(result[i]['name']!="")
+		 {
+                    option.text = result[i]["name"];
+	         }
+                 else
+                 {
+                   option.text = result[i]["video_url"];
+                 }
+		  
                  option.setAttribute("id",result[i]["_id"]["$oid"]);
 		 document.getElementById("playlist").appendChild(option);
 	       }
 });
-});
 
+} 
 
 $(document).on('touchstart.tap click','#progressDiv' , function (ev) {
     ev.stopPropagation(); ev.preventDefault();

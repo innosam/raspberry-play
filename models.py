@@ -12,4 +12,3 @@ class Video(db.Document):
         'indexes': ['-created_at', 'name'],
         'ordering': ['-created_at']
     }
-

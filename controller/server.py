@@ -12,9 +12,8 @@ from flask import render_template, send_from_directory
 import json, cPickle
 from player import Player
 from raspberry_play import app
-monkey.patch_socket()
 from raspberry_play.models import Video
-
+monkey.patch_socket()
 
 pipe_left, pipe_right = Pipe()
 pipe_status_left, pipe_status_right = Pipe()
@@ -48,45 +47,62 @@ def omxplayer():
         return ""
 
     video_url = request.args.get('video_url', '')
-    dict_video_url = {'video_url': video_url}
-    print "sending video url"
-    pipe_left.send(cPickle.dumps(dict_video_url))
-    print "sent video url"
+    if video_url:
+        add_video(request)
+ 
     return ""
 
 
-@app.route('/omxplayer/add_video', methods=['GET'])
-def add_video():
+def add_video(request):
     video_url = request.args.get('video_url', '')
+    name = request.args.get('name', '')
+    if not name:
+      name = ""
     try:
         video = Video(
-            name = "xyz",
+            name = name,
             video_url =  video_url
             )
         video.save()
     except:
         print "Unexpected error:", sys.exc_info()
-    #Add video_url to the list
-    #if no song is playing
-    #start the current one
+    dict_notify = {'notify': "video_added", "id": str(video['id']) }
+    pipe_left.send(cPickle.dumps(dict_notify))
     return ""
+
+
+@app.route('/omxplayer/play_video', methods=['GET'])
+def play_video():
+    unique_id = request.args.get('unique_id', '')
+    dict_notify = {'notify': "video_played", "id": unique_id }
+    pipe_left.send(cPickle.dumps(dict_notify))
+    return ""
+
 
 @app.route('/omxplayer/delete_video', methods=['GET'])
 def delete_video():
-    unique_id = request.args.get('unique_id', '')
-    Video.objects.remove({ "_id": { "$oid" : unique_id } })
-    #remove video_url from the list
-    #if no song is playing
-    #stop it
-    pass
+    unique_ids = request.args.get('unique_id', '')
+    unique_ids = unique_ids.split(',')
+    for unique_id in unique_ids:
+      item = Video.objects(id = unique_id)
+      item.delete()
+      dict_notify = {'notify': "video_deleted", "id": unique_id }
+      pipe_left.send(cPickle.dumps(dict_notify))
+    return ""
+
+@app.route('/omxplayer/clear_video', methods=['GET'])
+def clear_video():
+    Video.objects.delete()
+    dict_notify = {'notify': "video_clear"}
+    pipe_left.send(cPickle.dumps(dict_notify))
+    return ""
+
+  
 
 @app.route('/omxplayer/get_videos', methods=['GET'])
 def get_videos():
     videos = Video.objects.to_json()
     return videos
-    #get_video_list_in_json
-    #return the list
-
 
 @app.route('/omxplayer/status', methods=['GET'])
 def omxplayer_status():
@@ -95,11 +111,9 @@ def omxplayer_status():
     status = pipe_status_left.recv()
     return status
 
-
 @app.route('/')
 def raspberry():
     return render_template('rasp.html');
-
  
 def Server():
     proc = Process(target = Player(pipe_right, pipe_status_right).manager)
