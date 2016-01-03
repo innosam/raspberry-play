@@ -101,7 +101,7 @@ def clear_video():
 
 @app.route('/omxplayer/get_videos', methods=['GET'])
 def get_videos():
-    videos = Video.objects.to_json()
+    videos = Video.objects.order_by("created_by").to_json()
     return videos
 
 @app.route('/omxplayer/status', methods=['GET'])
