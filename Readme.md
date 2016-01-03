@@ -1,3 +1,8 @@
+Raspberry Play
+- Play videos supported by youtube-dl directly on the raspberry
+- Functional GUI for omxplayer  
+
+
 Optimize the status bar, while auto updating the postion without querying the server
 - every second, update the position
 - after 10 seconds, realign the position based on server status
