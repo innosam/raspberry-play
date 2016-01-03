@@ -63,6 +63,10 @@ $('#playlist_clear').click(function(){
 		 refresh_playlist(500);
         });   
 
+$('#playlist_refresh').click(function(){ 
+		 refresh_playlist(500);
+        });   
+
 
 
 $(document).ready(function(){
