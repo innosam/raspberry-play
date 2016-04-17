@@ -5,7 +5,7 @@
 ##### All controlled by webapp. [CHECK OUT THE FRONTEND](http://innosam.github.io/raspberry-play/templates/rasp.html)
 Add firefox plugin to send songs to raspberry with a single click
 
-1. A lot of content providers - [supported-sites](https://rg3.github.io/youtube-dl/supportedsites.html).
+1. Hundreds of content providers including youtube - [supported-sites](https://rg3.github.io/youtube-dl/supportedsites.html).
 2. WebApp: seek, play controls, volume control, playlist
 3. Firefox plugin to add video urls to the [raspberry-play](https://github.com/innosam/rasp-play-addon) directly. 
 
