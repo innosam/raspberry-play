@@ -13,14 +13,15 @@ Add firefox plugin to send songs to raspberry with a single click
 2. WebApp: seek, play controls, volume control, playlist
 3. Firefox plugin to add video urls to the [raspberry-play](https://github.com/innosam/rasp-play-addon) directly. 
 
+
 #### Fixes/Features:
-1. Optimize the status bar:
+1.Optimize the status bar:
 - every second, auto update the position
 - after 10 seconds, realign the position based on server status
 
-2. Add playlist support
+2.Add playlist support
 - Use mongdb
 - Develop Backend API's for playlist
 - Enhance frontend to use the API's
 
-3. Add firefox plugin to play videos remotely with a single click
+3.Add firefox plugin to play videos remotely with a single click
