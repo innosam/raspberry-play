@@ -1,6 +1,6 @@
 #Raspberry Player 
 
-##### Plays videos remotely on a display.
+##### Plays videos remotely on a display using a Raspberry PI 2.
 ##### Or, just play audo remotely on speakers.
 ##### All controlled by webapp. [CHECK OUT THE FRONTEND](http://innosam.github.io/raspberry-play/templates/rasp.html)
 
