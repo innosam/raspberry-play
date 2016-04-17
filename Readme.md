@@ -2,7 +2,7 @@ Rspberry Player
 
 ##### Plays videos remotely on a display.
 ##### Or, just play audo remotely on speakers.
-#####  All controlled by webapp. [CHECK OUT THE FRONTEND](http://innosam.github.io/raspberry-play/templates/rasp.html)
+##### All controlled by webapp. [CHECK OUT THE FRONTEND](http://innosam.github.io/raspberry-play/templates/rasp.html)
 Add firefox plugin to send songs to raspberry with a single click
 
 1. A lot of content providers - [supported-sites](https://rg3.github.io/youtube-dl/supportedsites.html).
