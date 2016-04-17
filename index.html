@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Raspberry Play</title>
+  
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap theme -->
+    <link href="css/bootstrap-theme.min.css" rel="stylesheet">
+    <!-- Custom -->
+    <link href="css/raspberry_play.css" rel="stylesheet">
+
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+
+  <div class="container"> 
+  <h1>Raspberry Play</h1>
+   <div class="col-lg-6">
+ <div class="progress" id="progressDiv">
+        <div id="progressBar" class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%"><span class="sr-only">0% Complete</span></div>
+  </div>
+   </div>
+ 
+  <div class="row">
+  <div class="col-lg-7">
+  <div class="input-group">
+  <input type="text" class="form-control" id = "Video_Url_Input" placeholder="Enter URL...">
+  <span class="input-group-btn">
+  <button class="btn btn-default" id = "Play" type="button">Add</button>
+  <button class="btn btn-default" id = "Stop" type="button">Stop</button>
+  <button class="btn btn-default" id = "Pause" type="button">Pause</button>
+  <button class="btn btn-default" id = "Volumeplus" type="button">+</button>
+  <button class="btn btn-default" id = "Volume-" type="button">-</button>
+      
+  </span>
+  </div><!-- /input-group -->
+
+  <div class="form-group">
+  <label for="sel1"></label>
+  <select multiple class="form-control" id="playlist">
+  </select>
+  </div>
+
+<div class="btn-group" role="group" aria-label="...">
+  <button type="button" class="btn btn-default" id="playlist_remove">Remove</button>
+  <button type="button" class="btn btn-default" id="playlist_play">Play</button>
+  <button type="button" class="btn btn-default" id="playlist_clear">Clear</button>
+  <button type="button" class="btn btn-default" id="playlist_refresh">Refresh</button>
+</div>
+
+  </div><!-- /.col-lg-6 -->
+  </div><!-- /.row -->
+ </div>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/raspberry-play.js"></script>
+
+  </body>
+</html>
+
